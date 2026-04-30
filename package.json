@@ -1,6 +1,6 @@
 {
 	"name": "@biztory/n8n-nodes-autom8-tableau-action-trigger",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Autom8 Tableau Action Trigger node for n8n. Receives data from the Autom8 Tableau dashboard extension via webhook and surfaces it as workflow input.",
 	"license": "MIT",
 	"homepage": "https://www.biztory.com",
