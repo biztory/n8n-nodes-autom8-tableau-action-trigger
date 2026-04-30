@@ -3,7 +3,7 @@
 	"version": "0.4.0",
 	"description": "Autom8 Tableau Action Trigger node for n8n. Receives data from the Autom8 Tableau dashboard extension via webhook and surfaces it as workflow input.",
 	"license": "MIT",
-	"homepage": "https://www.biztory.com",
+	"homepage": "https://autom8.biztory.com",
 	"keywords": [
 		"n8n-community-node-package",
 		"tableau",
