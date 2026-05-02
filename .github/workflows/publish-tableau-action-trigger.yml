@@ -54,6 +54,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm ci
@@ -62,11 +63,9 @@ jobs:
         # Publishes to npm with a provenance attestation (requires id-token: write).
         # Lint and build run automatically as part of `n8n-node release`.
         #
-        # OIDC: leave NPM_TOKEN unset — the auth step below is a no-op and npm
-        # uses the OIDC exchange.
-        # Token: set NPM_TOKEN in repo secrets — written to .npmrc here.
-        run: |
-          [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
-          npm run release
+        # setup-node (above) writes .npmrc: //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+        # Token: set NPM_TOKEN in repo secrets → NODE_AUTH_TOKEN is used for auth.
+        # OIDC: leave NPM_TOKEN unset → npm uses the OIDC exchange with the Trusted Publisher.
+        run: npm run release
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
