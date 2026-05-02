@@ -14,7 +14,7 @@
 #   2. Settings → Publish access → Trusted Publishers → Add a publisher.
 #   3. Select GitHub Actions and fill in:
 #        Repository owner: biztory
-#        Repository name:  n8n-nodes-autom8
+#        Repository name:  <this repo's name>
 #        Workflow name:    publish-tableau-action-trigger.yml
 #        Environment:      (leave blank)
 #
@@ -24,7 +24,7 @@
 #
 # ─── RELEASE PROCESS ───────────────────────────────────────────────────────────
 #
-# From inside packages/tableau-action-trigger, run:
+# From the repo root, run:
 #   npm run release
 # This lints, builds, prompts for a version bump, updates CHANGELOG.md, commits,
 # tags as `tableau-action-trigger/<version>`, and pushes — which triggers this
@@ -46,10 +46,6 @@ jobs:
       id-token: write
       contents: read
 
-    defaults:
-      run:
-        working-directory: packages/tableau-action-trigger
-
     steps:
       - uses: actions/checkout@v4
 
@@ -60,9 +56,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # `npm ci` runs at the workspace root so the lockfile resolves correctly.
         run: npm ci
-        working-directory: ${{ github.workspace }}
 
       - name: Release
         # Publishes to npm with a provenance attestation (requires id-token: write).
