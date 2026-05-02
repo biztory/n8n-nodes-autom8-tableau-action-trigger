@@ -1,0 +1,78 @@
+# Publishes @biztory/n8n-nodes-autom8-tableau-action-trigger to npm whenever a
+# tag of the form `tableau-action-trigger/X.Y.Z` is pushed.
+#
+# Starting May 1 2026, n8n requires all community nodes to be published via
+# GitHub Actions with npm provenance statements. This workflow satisfies that
+# requirement by running `npm run release` from inside the package, which
+# delegates to `n8n-node release` and emits a signed provenance attestation.
+#
+# ─── ONE-TIME SETUP ────────────────────────────────────────────────────────────
+#
+# Configure a Trusted Publisher on npmjs.com for this package:
+#   1. Open the package settings on npmjs.com (you can pre-register the package
+#      name even before its first publish).
+#   2. Settings → Publish access → Trusted Publishers → Add a publisher.
+#   3. Select GitHub Actions and fill in:
+#        Repository owner: biztory
+#        Repository name:  n8n-nodes-autom8
+#        Workflow name:    publish-tableau-action-trigger.yml
+#        Environment:      (leave blank)
+#
+# Fallback (NPM_TOKEN): if OIDC trusted publishing is unavailable for the very
+# first publish, generate a granular access token scoped to this package and
+# add it as the repo secret NPM_TOKEN. The step below picks it up automatically.
+#
+# ─── RELEASE PROCESS ───────────────────────────────────────────────────────────
+#
+# From inside packages/tableau-action-trigger, run:
+#   npm run release
+# This lints, builds, prompts for a version bump, updates CHANGELOG.md, commits,
+# tags as `tableau-action-trigger/<version>`, and pushes — which triggers this
+# workflow.
+
+name: Publish tableau-action-trigger
+
+on:
+  push:
+    tags:
+      - 'tableau-action-trigger/*.*.*'
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: packages/tableau-action-trigger
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        # `npm ci` runs at the workspace root so the lockfile resolves correctly.
+        run: npm ci
+        working-directory: ${{ github.workspace }}
+
+      - name: Release
+        # Publishes to npm with a provenance attestation (requires id-token: write).
+        # Lint and build run automatically as part of `n8n-node release`.
+        #
+        # OIDC: leave NPM_TOKEN unset — the auth step below is a no-op and npm
+        # uses the OIDC exchange.
+        # Token: set NPM_TOKEN in repo secrets — written to .npmrc here.
+        run: |
+          [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm run release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
