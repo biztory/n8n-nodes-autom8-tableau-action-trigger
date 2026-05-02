@@ -24,3 +24,4 @@ Tested and supported starting with n8n version **2.13.3**.
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
 - [Full Autom8 documentation](https://biztory.atlassian.net/wiki/spaces/A8/pages/1123254273/n8n+Node)
+- Main repository: https://github.com/biztory/n8n-nodes-autom8
