@@ -1,53 +1,53 @@
 {
     "name": "n8n-nodes-autom8-tableau-action-trigger",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "Autom8 Tableau Action Trigger node for n8n. Receives data from the Autom8 Tableau dashboard extension via webhook and surfaces it as workflow input.",
-	"license": "MIT",
-	"homepage": "https://autom8.biztory.com",
-	"keywords": [
-		"n8n-community-node-package",
-		"tableau",
-		"autom8",
-		"trigger",
-		"webhook",
-		"data action"
-	],
-	"author": {
-		"name": "Timothy Vermeiren (Biztory)",
-		"email": "timothy.vermeiren@biztory.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/biztory/n8n-nodes-autom8-tableau-action-trigger.git"
-	},
-   "scripts": {
-		"build": "n8n-node build",
-		"build:watch": "tsc --watch",
-		"dev": "n8n-node dev",
-		"lint": "n8n-node lint",
-		"lint:fix": "n8n-node lint --fix",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
-	},
+    "license": "MIT",
+    "homepage": "https://autom8.biztory.com",
+    "keywords": [
+        "n8n-community-node-package",
+        "tableau",
+        "autom8",
+        "trigger",
+        "webhook",
+        "data action"
+    ],
+    "author": {
+        "name": "Timothy Vermeiren (Biztory)",
+        "email": "timothy.vermeiren@biztory.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/biztory/n8n-nodes-autom8-tableau-action-trigger.git"
+    },
+    "scripts": {
+        "build": "n8n-node build",
+        "build:watch": "tsc --watch",
+        "dev": "n8n-node dev",
+        "lint": "n8n-node lint",
+        "lint:fix": "n8n-node lint --fix",
+        "release": "n8n-node release",
+        "prepublishOnly": "n8n-node prerelease"
+    },
     "files": [
         "dist"
     ],
     "n8n": {
-		"n8nNodesApiVersion": 1,
-		"strict": true,
-		"credentials": [
-			"dist/credentials/Autom8TableauBearerApi.credentials.js"
-		],
-		"nodes": [
-			"dist/nodes/Autom8TableauActionTrigger/Autom8TableauActionTrigger.node.js"
-		]
-	},
-	"release-it": {
-		"git": {
-			"tagName": "tableau-action-trigger/${version}",
-			"commitMessage": "Release tableau-action-trigger ${version}"
-		}
-	},
+        "n8nNodesApiVersion": 1,
+        "strict": true,
+        "credentials": [
+            "dist/credentials/Autom8TableauBearerApi.credentials.js"
+        ],
+        "nodes": [
+            "dist/nodes/Autom8TableauActionTrigger/Autom8TableauActionTrigger.node.js"
+        ]
+    },
+    "release-it": {
+        "git": {
+            "tagName": "tableau-action-trigger/${version}",
+            "commitMessage": "Release tableau-action-trigger ${version}"
+        }
+    },
     "devDependencies": {
         "@n8n/node-cli": "*",
         "eslint": "9.32.0",
