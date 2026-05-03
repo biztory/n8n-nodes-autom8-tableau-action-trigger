@@ -42,12 +42,6 @@
             "dist/nodes/Autom8TableauActionTrigger/Autom8TableauActionTrigger.node.js"
         ]
     },
-    "release-it": {
-        "git": {
-            "tagName": "tableau-action-trigger/${version}",
-            "commitMessage": "Release tableau-action-trigger ${version}"
-        }
-    },
     "devDependencies": {
         "@n8n/node-cli": "*",
         "eslint": "9.32.0",
